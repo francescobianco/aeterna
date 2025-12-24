@@ -3,13 +3,19 @@ services:
     build: .
     environment:
       - AETERNA_ID=localhost:8443:23
+    volumes:
+      - tests/nodes/node1:/var/lib/aeterna:rw
 
   node2:
     build: .
     environment:
       - AETERNA_ID=localhost:8443:23
+    volumes:
+      - tests/nodes/node1:/var/lib/aeterna:rw
 
   node3:
     build: .
     environment:
       - AETERNA_ID=localhost:8443:23
+    volumes:
+      - tests/nodes/node1:/var/lib/aeterna:rw

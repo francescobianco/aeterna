@@ -2,20 +2,29 @@ services:
   node1:
     build: .
     environment:
-      - AETERNA_ID=localhost:8443:23
+      - AETERNA_ID=localhost:9915:9916
     volumes:
-      - tests/nodes/node1:/var/lib/aeterna:rw
+      - ./tests/nodes/node1:/var/lib/aeterna:rw
+    ports:
+      - "9915:80"
+      - "9916:22"
 
   node2:
     build: .
     environment:
-      - AETERNA_ID=localhost:8443:23
+      - AETERNA_ID=localhost:9925:9926
     volumes:
-      - tests/nodes/node1:/var/lib/aeterna:rw
+      - ./tests/nodes/node2:/var/lib/aeterna:rw
+    ports:
+      - "9925:80"
+      - "9926:22"
 
   node3:
     build: .
     environment:
-      - AETERNA_ID=localhost:8443:23
+      - AETERNA_ID=localhost:9935:9936
     volumes:
-      - tests/nodes/node1:/var/lib/aeterna:rw
+      - ./tests/nodes/node3:/var/lib/aeterna:rw
+    ports:
+      - "9935:80"
+      - "9936:22"

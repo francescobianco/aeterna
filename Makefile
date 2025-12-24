@@ -12,4 +12,5 @@ start: build
 	@docker compose up -d --build
 
 test: start
+	@docker compose up --force-recreate node1
 	@bash tests/simple-test.sh

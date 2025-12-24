@@ -2,7 +2,8 @@ services:
   node1:
     build: .
     environment:
-      - AETERNA_ID=localhost:9915:9916
+      - AETERNA_ID=node1:9915:9916
+      - AETERNA_MIRROR=node2:80:22
     volumes:
       - ./tests/nodes/node1:/var/lib/aeterna:rw
     ports:

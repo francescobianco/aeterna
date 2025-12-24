@@ -61,6 +61,8 @@ EXPOSE ${WEBDAV_PORT} ${SSH_PORT}
 
 # --- Entry script ---
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY sync.sh /usr/local/bin/sync.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/sync.sh
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

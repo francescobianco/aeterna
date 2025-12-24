@@ -9,5 +9,7 @@ chown -R www-data:www-data /var/lib/aeterna/data
 
 apache2ctl configtest
 
+bash /usr/local/bin/sync.sh
+
 # Start Apache in foreground
 apachectl -D FOREGROUND

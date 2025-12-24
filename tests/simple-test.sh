@@ -8,5 +8,7 @@ LOCAL_FILE="tests/fixtures/file1.txt"
 
 touch $LOCAL_FILE
 
-curl -T "$LOCAL_FILE" -u "$USER:$PASS" "$NODE_URL"
+curl -s -u "$USER:$PASS" "$NODE_URL" >/dev/null
+
+curl -s -T "$LOCAL_FILE" -u "$USER:$PASS" "$NODE_URL" >/dev/null
 

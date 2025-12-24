@@ -1,0 +1,15 @@
+services:
+  node1:
+    build: .
+    environment:
+      - AETERNA_ID=localhost:8443:23
+
+  node2:
+    build: .
+    environment:
+      - AETERNA_ID=localhost:8443:23
+
+  node3:
+    build: .
+    environment:
+      - AETERNA_ID=localhost:8443:23

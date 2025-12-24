@@ -10,11 +10,18 @@ RUN apt-get update && apt-get install -y \
     apache2 \
     rsync \
     openssh-client \
+    openssh-server \
     curl \
     ca-certificates \
     cron \
     vim-tiny \
  && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN mkdir /var/run/sshd
+
+RUN useradd -m -s /bin/bash replica
+RUN mkdir -p /home/replica/.ssh
+RUN chown -R replica:replica /home/replica/.ssh
 
 # --- Enable Apache modules ---
 RUN a2enmod dav dav_fs ssl auth_basic

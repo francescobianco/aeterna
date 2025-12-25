@@ -2,7 +2,11 @@
 set -e
 
 # Start cron in background
+echo "[aeterna] starting cron"
 service cron start
+
+echo "[aeterna] starting sshd"
+service ssh start
 
 mkdir -p /etc/aeterna/
 mkdir -p /var/lib/aeterna/data

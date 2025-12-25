@@ -15,15 +15,15 @@ while IFS=: read -r HOST WEBDAV_PORT SSH_PORT; do
 
    echo "Checking...." >&2
    # shellcheck disable=SC2095
-   ssh -v -p "$SSH_PORT" replica@$HOST date
+   ssh -v -p "$SSH_PORT" -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null replica@$HOST date
 
 
 echo "Syncing...."
 
     # Replica dati via rsync su SSH
-rsync -avvvz --progress --stats \
-  -e "ssh -vvv -p $SSH_PORT -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" \
-  "$DATA_DIR/" "replica@$HOST:$MIRRORS_DIR/$HOST/"
+#rsync -avvvz --progress --stats \
+#  -e "ssh -vvv -p $SSH_PORT -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+#  "$DATA_DIR/" "replica@$HOST:$MIRRORS_DIR/$HOST/"
 
 done < /etc/aeterna/mirrors.list
 

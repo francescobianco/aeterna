@@ -24,7 +24,7 @@ if [ ! -f "/var/lib/aeterna/data/_ssh/id_rsa.pub" ]; then
 fi
 
 echo "#!/bin/bash" > /var/lib/aeterna/data/cgi-bin/update_keys.cgi
-echo "/usr/local/bin/update_keys.sh" >> /var/lib/aeterna/data/cgi-bin/update_keys.cgi
+echo "bash /usr/local/bin/update_keys.sh" >> /var/lib/aeterna/data/cgi-bin/update_keys.cgi
 chmod +x /var/lib/aeterna/data/cgi-bin/update_keys.cgi
 
 apache2ctl configtest

@@ -8,9 +8,12 @@ push:
 build:
 	@chmod +x entrypoint.sh
 
-start: build
-	@docker compose up -d --build && sleep 1
+stop:
+	@docker compose stop
 
-test: start
+start: build
+	@docker compose up -d --build --force-recreate && sleep 2
+
+test: stop start
 	@#docker compose up --force-recreate node1
 	@bash tests/simple-test.sh

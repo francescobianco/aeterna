@@ -25,6 +25,7 @@ RUN chown -R replica:replica /home/replica/.ssh
 
 # --- Enable Apache modules ---
 RUN a2enmod dav dav_fs ssl auth_basic
+RUN a2enmod cgi
 
 # --- Directories ---
 VOLUME ["/var/lib/aeterna"]
@@ -48,6 +49,8 @@ RUN htpasswd -cb /etc/apache2/webdav.passwd $WEBDAV_USER $WEBDAV_PASS
 RUN echo "\
 <VirtualHost *:${WEBDAV_PORT}>\n\
     DocumentRoot /var/lib/aeterna/data\n\
+\n\
+    # Configurazione WebDAV\n\
     <Directory /var/lib/aeterna/data>\n\
         DAV On\n\
         AuthType Basic\n\
@@ -57,6 +60,16 @@ RUN echo "\
         Options Indexes FollowSymLinks\n\
         AllowOverride None\n\
         Require all granted\n\
+    </Directory>\n\
+\n\
+    # Configurazione CGI per update_keys\n\
+    <Directory /var/lib/aeterna/data/cgi-bin>\n\
+        Options +ExecCGI\n\
+        AddHandler cgi-script .cgi\n\
+        AuthType Basic\n\
+        AuthName 'Aeterna WebDAV'\n\
+        AuthUserFile /etc/apache2/webdav.passwd\n\
+        Require valid-user\n\
     </Directory>\n\
 </VirtualHost>" > /etc/apache2/sites-available/webdav.conf
 
@@ -69,6 +82,7 @@ EXPOSE ${WEBDAV_PORT} ${SSH_PORT}
 # --- Entry script ---
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 COPY sync.sh /usr/local/bin/sync.sh
+COPY update_keys.sh /usr/local/bin/update_keys.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/sync.sh
 

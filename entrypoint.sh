@@ -5,7 +5,22 @@ set -e
 service cron start
 
 mkdir -p /var/lib/aeterna/data
+mkdir -p /var/lib/aeterna/data/_ssh
+mkdir -p /var/lib/aeterna/data/_ssh/mirror
+mkdir -p /var/lib/aeterna/data/_trash
+touch /var/lib/aeterna/data/_trash/_empty
 chown -R www-data:www-data /var/lib/aeterna/data
+
+if [ ! -f "/home/replica/.ssh/id_rsa" ]; then
+    echo "Generazione chiavi SSH per $REPLICA_USER..."
+    ssh-keygen -t rsa -b 4096 -N "" -f /home/replica/.ssh/id_rsa
+fi
+
+if [ ! -f "/var/lib/aeterna/data/_ssh/id_rsa.pub" ]; then
+  echo "Copia "
+  cp /home/replica/.ssh/id_rsa.pub /var/lib/aeterna/data/_ssh/id_rsa.pub
+  ls -l /var/lib/aeterna/data/_ssh/
+fi
 
 apache2ctl configtest
 

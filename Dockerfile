@@ -17,7 +17,7 @@ RUN apt-get update && apt-get install -y \
     vim-tiny \
  && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN mkdir /var/run/sshd
+RUN mkdir -p /var/run/sshd
 
 RUN useradd -m -s /bin/bash replica
 RUN mkdir -p /home/replica/.ssh

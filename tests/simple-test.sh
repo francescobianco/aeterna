@@ -15,7 +15,7 @@ touch $LOCAL_FILE
 curl -s -u "$USER1:$PASS1" "$NODE1" >/dev/null
 curl -s -u "$USER2:$PASS2" "$NODE2" >/dev/null
 
-curl -s -u "$USER1:$PASS1" "$NODE1/.ssh/id_rsa.pub" -o tests/nodes/pubkey1
+curl -s -u "$USER1:$PASS1" "$NODE1/_ssh/id_rsa.pub" -o tests/nodes/pub_key_1
+curl -s -T "tests/nodes/pub_key_1" -u "$USER2:$PASS2" "$NODE2/_ssh/_mirror/" >/dev/null
 
-curl -s -T "$LOCAL_FILE" -u "$USER:$PASS" "$NODE_URL" >/dev/null
-
+#curl -s -T "$LOCAL_FILE" -u "$USER1:$PASS1" "$NODE1" >/dev/null

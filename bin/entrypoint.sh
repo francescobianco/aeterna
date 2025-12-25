@@ -11,7 +11,7 @@ service ssh start
 mkdir -p /etc/aeterna/
 mkdir -p /var/lib/aeterna/data
 mkdir -p /var/lib/aeterna/data/_ssh
-mkdir -p /var/lib/aeterna/data/_ssh/mirror
+mkdir -p /var/lib/aeterna/data/_ssh/mirrors
 mkdir -p /var/lib/aeterna/data/_trash
 touch /var/lib/aeterna/data/_trash/_empty
 chown -R www-data:www-data /var/lib/aeterna/data
@@ -29,6 +29,12 @@ if [ ! -f "/var/lib/aeterna/data/_ssh/id_rsa.pub" ]; then
 fi
 
 apache2ctl configtest
+
+chown replica:aeterna-sync /home/replica
+touch /home/replica/.ssh/authorized_keys
+chown -R replica:aeterna-sync /home/replica/.ssh
+chmod 750 /home/replica
+chmod 660 /home/replica/.ssh/authorized_keys
 
 bash /usr/local/bin/sync.sh
 

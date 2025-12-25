@@ -4,4 +4,4 @@
 echo "Content-type: text/plain"
 echo ""
 
-bash /usr/local/bin/update.sh
+bash /usr/local/bin/update.sh 2>&1

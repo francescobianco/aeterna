@@ -5,6 +5,7 @@ services:
       - AETERNA_ID=node1:9915:9916
       - AETERNA_MIRROR=node2:80:22
     volumes:
+      - ./.ssh/id_rsa.pub:/etc/aeterna/aeterna.pub
       - ./tests/nodes/node1:/var/lib/aeterna:rw
     ports:
       - "9915:80"

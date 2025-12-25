@@ -18,12 +18,12 @@ curl -s -u "$USER2:$PASS2" "$NODE2" >/dev/null
 curl -s -T "$LOCAL_FILE" -u "$USER1:$PASS1" "$NODE1" >/dev/null
 
 # Download node1 public key
-curl -s -u "$USER1:$PASS1" "$NODE1/_ssh/id_rsa.pub" -o tests/nodes/pub_key_1
+curl -s -u "$USER1:$PASS1" "$NODE1/_ssh/id_rsa.pub" -o tests/nodes/node1.pub
 # Store node1 public key to node2
-curl -s -T "tests/nodes/pub_key_1" -u "$USER2:$PASS2" "$NODE2/_ssh/_mirror/" >/dev/null
+curl -s -T "tests/nodes/node1.pub" -u "$USER2:$PASS2" "$NODE2/_ssh/mirrors/" >/dev/null
 # Update node2 internal settings
 curl -s -u "$USER2:$PASS2" "$NODE2/_api/update.sh"
 # Sync node1 to node2
-curl -s -u "$USER1:$PASS1" "$NODE1/_api/sync.sh"
+#curl -s -u "$USER1:$PASS1" "$NODE1/_api/sync.sh"
 
 

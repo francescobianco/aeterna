@@ -63,6 +63,7 @@ RUN echo "\
     </Directory>\n\
 \n\
     # Configurazione CGI per update_keys\n\
+    Alias /cgi-bin/ /var/lib/aeterna/data/cgi-bin/\n\
     <Directory /var/lib/aeterna/data/cgi-bin>\n\
         Options +ExecCGI\n\
         AddHandler cgi-script .cgi\n\

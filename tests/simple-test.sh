@@ -1,11 +1,11 @@
 #!/bin/bash
 set -e
 
-NODE1="http://localhost:9915/"
+NODE1="http://localhost:9915"
 USER1="aeterna"
 PASS1="Secret1234!"
 
-NODE2="http://localhost:9925/"
+NODE2="http://localhost:9925"
 USER2="aeterna"
 PASS2="Secret1234!"
 

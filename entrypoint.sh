@@ -23,9 +23,11 @@ if [ ! -f "/var/lib/aeterna/data/_ssh/id_rsa.pub" ]; then
   ls -l /var/lib/aeterna/data/_ssh/
 fi
 
+echo "Create api"
 echo "#!/bin/bash" > /var/lib/aeterna/data/cgi-bin/update_keys.cgi
 echo "bash /usr/local/bin/update_keys.sh" >> /var/lib/aeterna/data/cgi-bin/update_keys.cgi
 chmod +x /var/lib/aeterna/data/cgi-bin/update_keys.cgi
+chown -R www-data:www-data /var/lib/aeterna/data
 
 apache2ctl configtest
 

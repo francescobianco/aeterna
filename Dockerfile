@@ -63,10 +63,10 @@ RUN echo "\
     </Directory>\n\
 \n\
     # Configurazione CGI per update_keys\n\
-    Alias /cgi-bin/ /var/lib/aeterna/data/cgi-bin/\n\
-    <Directory /var/lib/aeterna/data/cgi-bin>\n\
+    Alias /_api/ /opt/aeterna/_api/\n\
+    <Directory /opt/aeterna/_api>\n\
         Options +ExecCGI\n\
-        AddHandler cgi-script .cgi\n\
+        AddHandler cgi-script .sh\n\
         AuthType Basic\n\
         AuthName 'Aeterna WebDAV'\n\
         AuthUserFile /etc/apache2/webdav.passwd\n\
@@ -81,10 +81,13 @@ RUN a2dissite 000-default.conf \
 EXPOSE ${WEBDAV_PORT} ${SSH_PORT}
 
 # --- Entry script ---
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
-COPY sync.sh /usr/local/bin/sync.sh
-COPY update_keys.sh /usr/local/bin/update_keys.sh
+COPY bin/entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY bin/sync.sh /usr/local/bin/sync.sh
+COPY bin/update.sh /usr/local/bin/update_keys.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/sync.sh
+
+COPY _api /opt/aeterna/_api
+RUN chmod +x -R /opt/aeterna/_api/*.sh
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

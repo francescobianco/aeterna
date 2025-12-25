@@ -4,13 +4,15 @@ set -e
 # Start cron in background
 service cron start
 
+mkdir -p /etc/aeterna/
 mkdir -p /var/lib/aeterna/data
 mkdir -p /var/lib/aeterna/data/_ssh
 mkdir -p /var/lib/aeterna/data/_ssh/mirror
 mkdir -p /var/lib/aeterna/data/_trash
-mkdir -p /var/lib/aeterna/data/cgi-bin
 touch /var/lib/aeterna/data/_trash/_empty
 chown -R www-data:www-data /var/lib/aeterna/data
+
+printf "%s\n" "${AETERNA_MIRROR//,/\\n}" > /etc/aeterna/mirrors.list
 
 if [ ! -f "/home/replica/.ssh/id_rsa" ]; then
     echo "Generazione chiavi SSH per $REPLICA_USER..."
@@ -18,16 +20,9 @@ if [ ! -f "/home/replica/.ssh/id_rsa" ]; then
 fi
 
 if [ ! -f "/var/lib/aeterna/data/_ssh/id_rsa.pub" ]; then
-  echo "Copia "
   cp /home/replica/.ssh/id_rsa.pub /var/lib/aeterna/data/_ssh/id_rsa.pub
   ls -l /var/lib/aeterna/data/_ssh/
 fi
-
-echo "Create api"
-echo "#!/bin/bash" > /var/lib/aeterna/data/cgi-bin/update_keys.cgi
-echo "bash /usr/local/bin/update_keys.sh" >> /var/lib/aeterna/data/cgi-bin/update_keys.cgi
-chmod +x /var/lib/aeterna/data/cgi-bin/update_keys.cgi
-chown -R www-data:www-data /var/lib/aeterna/data
 
 apache2ctl configtest
 
